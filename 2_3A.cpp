@@ -23,7 +23,7 @@ public:
 //              Calc -> CalcTest / CalcSpec
 //    ImageProcessor -> ImageProcessorTest / ImageProcessorSpec
 //
-// 2. TestCase를 구성하는 방법 - 3A
+// 2. TestCase를 구성하는 방법 - 3A(TDD) / BDD
 //    1) Arrange: 테스트 대상 코드를 초기화하고, 필요한 경우 설정하고 준비합니다.
 //    2) Act: 테스트 대상 코드에 작용을 가한다.(함수를 호출한다)
 //    3) Assert: 기대하는 바를 단언한다.
@@ -36,12 +36,22 @@ public:
 //     - 테스트케이스에서 오류가 발생할 수 없는 형태의 코드를 지향해야 합니다.
 //      > 제어 구문(조건문, 반복문, 예외 처리 등) 검증
 //      > 테스트케이스 코드 안에서 제어 구문을 지양해야 합니다.
-//    3)
+//    3) 신뢰성
+//
+// 5. BDD(Behavior Driven Development)
+//  : 행위 주도 개발
+//   1) 사용하는 용어에 차이점이 있습니다.
+//     - 좀 더 사람과 가까운 용어를 사용하자.
+//       Arrange -> Given
+//       Act     -> When
+//       Assert  -> Then
+//   2) ???
 
 
 TEST(CalcTest, PressPlus_TwoPlusTwoEquals_DisplaysFour) {
 	// 1. Arrange
 	Calc* calc = new Calc;
+	double expected = 4;
 
 	// 2. Act
 	calc->Enter(2);
@@ -61,8 +71,11 @@ TEST(CalcTest, PressPlus_TwoPlusTwoEquals_DisplaysFour) {
 	// 위의 형태로 검증하는 것이 아니라, 단위 테스트 프레임워크가 제공하는
 	// 단언문을 사용해야 합니다.
 	//  => 함수, 매크로
-	//  ASSERT_EQ / LT / GT / NE / LE / GE / NULL / NOT_NULL
-	ASSERT_EQ(calc->Display(), 4) << "2 + 2 하였을 때";
+	//  ASSERT_EQ / LT / GT / NE / LE / GE / NULL / NOT_NULL / TRUE / FALSE ...
+	// ASSERT_EQ(calc->Display(), 4) << "2 + 2 하였을 때";
+	ASSERT_EQ(calc->Display(), expected) << "2 + 2 하였을 때";
+	// ASSERT_EQ(expected, actual)
+	//  - Google Test 1.10 이전에는 반드시 인자의 순서가 중요합니다.
 }
 
 
