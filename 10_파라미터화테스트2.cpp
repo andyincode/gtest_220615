@@ -26,7 +26,7 @@ class PrimeTest : public testing::TestWithParam<int>
 };
 
 // 2. 데이터 셋 정의
-int data[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 37};
+int data[] = {2, 3, 5, 7, 8, 11, 13, 17, 19, 23, 37};
 
 // 1.10 이후: INSTANTIATE_TEST_SUITE_P(데이터셋이름, TestSuite이름, 데이터)
 // 1.10 이전: INSTANTIATE_TEST_CASE_P
