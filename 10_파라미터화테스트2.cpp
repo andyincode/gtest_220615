@@ -23,6 +23,12 @@ bool IsPrime(int value)
 
 class PrimeTest : public testing::TestWithParam<int>
 {
+protected:
+  void SetUp() override {}
+  void TearDown() override {}
+
+  static void SetUpTestSuite() {}
+  static void TearDownTestSuite() {}
 };
 
 // 2. 데이터 셋 정의
