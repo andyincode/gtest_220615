@@ -17,7 +17,7 @@ int goo() { return -1; }
 //    xUnit Test Pattern
 //     : 하나의 테스트케이스 안에 여러개의 단언문을 사용하지 않는 것이 좋습니다.
 //      문제점: 하나의 기능에 대해서 중복된 테스트케이스가 많아지는 발생할 수 있습니다.
-TEST(SampleTest, Sample1)
+TEST(DISABLED_SampleTest, Sample1)
 {
   int actualFoo = foo();
   int actualGoo = goo();
@@ -29,7 +29,7 @@ TEST(SampleTest, Sample1)
 // - EXPECT_XXX
 //  => 실패할 경우, 테스트의 결과는 실패가 되지만, 이후의 코드를 계속 수행합니다.
 //  => "죽은 단언문" / "중복된 테스트케이스"
-TEST(SampleTest, Sample2)
+TEST(DISABLED_SampleTest, Sample2)
 {
   int actualFoo = foo();
   int actualGoo = goo();
@@ -48,7 +48,7 @@ public:
 
 User *GetUser() { return nullptr; }
 
-TEST(SampleTest, Sample3)
+TEST(DISABLED_SampleTest, Sample3)
 {
   User *user = GetUser();
 
@@ -65,7 +65,7 @@ TEST(SampleTest, Sample3)
 // 주의사항: C의 문자열을 비교할 때는 문자열 전용 단언 매크로를 사용해야 합니다.
 //    EXPECT_STREQ/STRNE
 //    EXPECT_STRCASEEQ/STRCASENE
-TEST(SampleTest2, Sample1)
+TEST(DISABLED_SampleTest2, Sample1)
 {
   std::string s1 = "hello";
   std::string s2 = "hello";
@@ -98,7 +98,7 @@ void OpenFile(const std::string &filename)
   }
 }
 
-TEST(SampleTest2, Sample3)
+TEST(DISABLED_SampleTest2, Sample3)
 {
   // OpenFile 함수에 잘못된 인자가 전달된 경우,
   // invalid_argument 예외가 제대로 발생하는지 여부를 검증하고 싶다.
@@ -123,7 +123,7 @@ TEST(SampleTest2, Sample3)
 //    : 기대한 예외 타입
 //    EXPECT_ANY_THROW
 //    : 예외 발생 여부
-TEST(SampleTest2, Sample4)
+TEST(DISABLED_SampleTest2, Sample4)
 {
   std::string emptyFilename = "";
 
@@ -186,3 +186,48 @@ TEST(ImageProcessorTest, foo) {}
 TEST(ImageProcessorTest, goo) {}
 // ImageTest.hoo
 TEST(ImageProcessorTest, hoo) {}
+
+// 문제점: 아래의 테스트 케이스는 1번 실행 될 경우, 성공하지만
+//       2번 이상 실행되었을 경우 실패의 가능성이 있습니다.
+//    => 테스트의 결과가 동일하지 않습니다.
+//    => 신뢰성 문제
+//    확인 하는 방법: 테스트를 한번만 수행하는 것이 반복적으로 수행하는 것 입니다.
+//    $ ./a.out --gtest_repeat=10 --gtest_break_on_failure --gtest_shuffle
+
+// --gtest_break_on_failure: 테스트 실행 중 실패한다면, 테스트 프로그램을 강제 종료합니다.
+// --gtest_shuffle
+
+int i = 0; // 전역 상태
+
+TEST(SampleTest4, Sample1)
+{
+  EXPECT_EQ(++i, 1);
+  // if (i == 2)
+  // {
+  //   i = 0;
+  // }
+}
+
+TEST(SampleTest4, Sample2)
+{
+  EXPECT_EQ(i, 1);
+}
+
+// 테스트 결과 포맷팅(Test Result Formatter)
+//  : xUnit Test Framework은 테스트의 결과를 다른 포맷으로 출력하는 기능을 제공합니다.
+// $ ./a.out --gtest_output=xml|json
+// => 추가적인 데이터를 기록할 수 있습니다.
+//    : RecordProperty(key, value)
+#define SPEC(message)                       \
+  do                                        \
+  {                                         \
+    printf(message);                        \
+    RecordProperty("description", message); \
+  } while (0)
+
+TEST(SampleTest5, Sample1)
+{
+  SPEC("이미지를 프로세싱해서 처리합니다.\n");
+  RecordProperty("cpu", "5.5%");
+  RecordProperty("mem", "100m");
+}
