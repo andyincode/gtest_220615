@@ -57,3 +57,22 @@ TEST(SampleTest, Sample3)
                             //   불필요한 검증이 더 이상 수행되지 않도록 할 수 있습니다.
   EXPECT_EQ(user->GetAge(), 100);
 }
+
+// 문자열 비교 단언문
+// 1. C 문자열: const char* / char[]
+// 2. C++ 문자열: string
+
+// 주의사항: C의 문자열을 비교할 때는 문자열 전용 단언 매크로를 사용해야 합니다.
+//    EXPECT_STREQ/STRNE
+//    EXPECT_STRCASEEQ/STRCASENE
+TEST(SampleTest2, Sample1)
+{
+  std::string s1 = "hello";
+  std::string s2 = "hello";
+
+  const char *s3 = "hello";
+  char s4[] = "Hello";
+
+  EXPECT_EQ(s1, s2);
+  EXPECT_STRCASEEQ(s3, s4);
+}
