@@ -25,7 +25,7 @@ TEST_F(ImageProcessorTest, BlurImage2) {}
 
 // 2. 테스트케이스를 구성하는 방법
 //   xUnit Test Pattern => 4단계 테스트 패턴(Four Phase Test Pattern)
-//   1단계: 테스트 픽스처를 설치하거나 실제 결과를 관찰하기 위해 필요하는 것을 설정하는 작업을 수행합니다.
+//   1단계: 테스트 픽스처를 설치하거나 실제 결과를 관찰하기 위해 필요하는 것을 설정하는 작업(테스트 대역 주입)을 수행합니다.
 //         => SetUp()
 //   2단계: SUT와 상호작용 합니다.  => TestBody()
 //   3단계: 기대 결과를 확인합니다.  => TestBody()
