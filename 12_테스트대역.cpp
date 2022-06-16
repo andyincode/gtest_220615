@@ -12,11 +12,17 @@ public:
   virtual bool IsValid(const std::string &filename)
   {
     // 현재의 파일 시스템에서 적합한 이름인지 여부를 판단합니다.
-    return true;
+    return false;
   }
 };
 
 // Logger -----<> FileSystem
+
+// Logger -----<> TestDouble: FileSystem
+//                   IsValid: 무조건 true를 반환합니다.
+
+// 문제점: 테스트 대역은 제품 코드의 설계가 테스트 대역을 적용할 수 있어야 합니다.
+
 class Logger
 {
 public:
@@ -24,12 +30,14 @@ public:
   // file.log
   bool IsValidLogFilename(const std::string &filename)
   {
+    //--------------------
     size_t index = filename.find_last_of(".");
     std::string name = filename.substr(0, index);
     if (name.size() < 5)
     {
       return false;
     }
+    //--------------------
 
     // 파일 시스템에서 체크해야 합니다.
     FileSystem fs;
