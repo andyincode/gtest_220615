@@ -16,7 +16,7 @@ bool IsPrime(int value)
 // 데이터 검증을 위해서 제어 구문을 직접적으로 사용하고 있습니다. => 유지보수
 TEST(PrimeTest, IsPrime2)
 {
-  int data[] = {2, 3, 5, 7, 8, 11, 13, 17, 19, 23, 37};
+  int data[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 37};
   for (int value : data)
   {
     EXPECT_TRUE(IsPrime(value)) << "value: " << value;
