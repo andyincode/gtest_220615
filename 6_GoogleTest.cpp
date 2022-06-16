@@ -76,3 +76,64 @@ TEST(SampleTest2, Sample1)
   EXPECT_EQ(s1, s2);
   EXPECT_STRCASEEQ(s3, s4);
 }
+
+// 부동소수점 비교 단언문
+// - EXPECT_DOUBLE_EQ / EXPECT_FLOAT_EQ / NE
+// - 오차 범위를 직접 지정하고 싶다: EXPECT_NEAR
+TEST(SampleTest2, Sample2)
+{
+  double a = 0.7;
+  double b = 0.1 * 7;
+
+  EXPECT_DOUBLE_EQ(a, b); // 4ULP - https://en.wikipedia.org/wiki/Unit_in_the_last_place
+  EXPECT_NEAR(a, b, 0.0000000000001);
+}
+
+void OpenFile(const std::string &filename)
+{
+  if (filename.empty())
+  {
+    // throw std::invalid_argument("파일 이름이 비어있습니다.");
+    // throw 1;
+  }
+}
+
+TEST(SampleTest2, Sample3)
+{
+  // OpenFile 함수에 잘못된 인자가 전달된 경우,
+  // invalid_argument 예외가 제대로 발생하는지 여부를 검증하고 싶다.
+
+  try
+  {
+    OpenFile("");
+    FAIL() << "예외가 발생하지 않았습니다.";
+  }
+  catch (std::invalid_argument &e)
+  {
+    SUCCEED();
+  }
+  catch (...)
+  {
+    FAIL() << "다른 종류의 예외가 발생하였습니다.";
+  }
+}
+
+// 예외 테스트용 단언문을 제공합니다.
+//  - EXPECT_THROW
+//    : 기대한 예외 타입
+//    EXPECT_ANY_THROW
+//    : 예외 발생 여부
+
+TEST(SampleTest2, Sample4)
+{
+  std::string emptyFilename = "";
+
+  // OpenFile 함수에 잘못된 인자가 전달된 경우,
+  // invalid_argument 예외가 제대로 발생하는지 여부를 검증하고 싶다.
+
+  // EXPECT_THROW(OpenFile(""), std::invalid_argument);
+  // Expected: OpenFile("") throws an exception of type std::invalid_argument.
+
+  EXPECT_THROW(OpenFile(emptyFilename), std::invalid_argument);
+  // Expected: OpenFile(emptyFilename) throws an exception of type std::invalid_argument.
+}
