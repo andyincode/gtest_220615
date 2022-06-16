@@ -147,7 +147,6 @@ TEST(SampleTest2, Sample4)
 //  2. TestSuite의 이름이 DISABLED_ 로 시작하는 경우
 
 // - 테스트 코드를 주석 처리를 통해 비활성화하면, "잊혀진 테스트"가 됩니다.
-
 class DISABLED_SampleTest3 : public testing::Test
 {
 };
@@ -161,3 +160,29 @@ TEST_F(DISABLED_SampleTest3, DISABLED_Sample1)
 TEST_F(DISABLED_SampleTest3, foo) {}
 TEST_F(DISABLED_SampleTest3, goo) {}
 TEST_F(DISABLED_SampleTest3, hoo) {}
+
+// 테스트 필터 기능이 제공됩니다.
+// $ ./a.out --gtest_filter=ImageTest.foo
+// $ ./a.out --gtest_filter=ImageTest.foo:ImageTest.goo:ImageTest.hoo
+// $ ./a.out --gtest_filter=ImageTest.*:-ImageTest.goo
+// $ ./a.out --gtest_filter=Image*.*
+// $ ./a.out --gtest_filter=Image*.foo*
+
+// 테스트 필터 기능을 효율적으로 사용하기 위해서는 테스트 케이스 종류에 따라서 약속을 하는 것이 좋습니다.
+//  TC
+//   - Positive Test: P_XXX
+//   - Negative Test: N_XXX
+
+// ImageTest.foo
+TEST(ImageTest, foo) {}
+// ImageTest.goo
+TEST(ImageTest, goo) {}
+// ImageTest.hoo
+TEST(ImageTest, hoo) {}
+
+// ImageTest.foo
+TEST(ImageProcessorTest, foo) {}
+// ImageTest.goo
+TEST(ImageProcessorTest, goo) {}
+// ImageTest.hoo
+TEST(ImageProcessorTest, hoo) {}
