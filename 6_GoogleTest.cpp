@@ -123,7 +123,6 @@ TEST(SampleTest2, Sample3)
 //    : 기대한 예외 타입
 //    EXPECT_ANY_THROW
 //    : 예외 발생 여부
-
 TEST(SampleTest2, Sample4)
 {
   std::string emptyFilename = "";
@@ -137,3 +136,28 @@ TEST(SampleTest2, Sample4)
   EXPECT_THROW(OpenFile(emptyFilename), std::invalid_argument);
   // Expected: OpenFile(emptyFilename) throws an exception of type std::invalid_argument.
 }
+
+// 테스트 비활성화
+//  1) 테스트가 수행되지 않고, 결과에도 포함되지 않지만, 존재한다는 사실을 알려야 합니다.
+//  2) 비활성화된 테스트를 포함해서 돌릴 수 있는 기능도 제공됩니다.
+//   > $ ./a.out --gtest_also_run_disabled_tests
+
+//  Google Test에서 비활성화 하는 방법
+//  1. TestCase의 이름이 DISABLED_ 로 시작하는 경우
+//  2. TestSuite의 이름이 DISABLED_ 로 시작하는 경우
+
+// - 테스트 코드를 주석 처리를 통해 비활성화하면, "잊혀진 테스트"가 됩니다.
+
+class DISABLED_SampleTest3 : public testing::Test
+{
+};
+
+TEST_F(DISABLED_SampleTest3, DISABLED_Sample1)
+{
+  // 작성 중입니다.
+  FAIL() << "작성 중입니다.";
+}
+
+TEST_F(DISABLED_SampleTest3, foo) {}
+TEST_F(DISABLED_SampleTest3, goo) {}
+TEST_F(DISABLED_SampleTest3, hoo) {}
