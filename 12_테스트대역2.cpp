@@ -67,9 +67,22 @@ public:
 
 #include <gtest/gtest.h>
 
+// Logger ---------<>     IFileSystem
+//                             |
+//                      ----------------
+//                      |              |
+//                FileSystem     TestDoubleFileSystem
+
+class TestDoubleFileSystem : public IFileSystem
+{
+public:
+  bool IsValid(const std::string &filename) override { return true; }
+};
+
 TEST(LoggerTest, IsValidLogFilename_NameLoggerThan5Chars_ReturnsTrue)
 {
-  Logger logger;
+  TestDoubleFileSystem fs;
+  Logger logger(&fs);
   std::string validFilename = "valid_file.log";
 
   EXPECT_TRUE(logger.IsValidLogFilename(validFilename)) << "파일명이 다섯글자 이상일 때";
@@ -77,7 +90,8 @@ TEST(LoggerTest, IsValidLogFilename_NameLoggerThan5Chars_ReturnsTrue)
 
 TEST(LoggerTest, IsValidLogFilename_NameShorterThan5Chars_ReturnsFalse)
 {
-  Logger logger;
+  TestDoubleFileSystem fs;
+  Logger logger(&fs);
   std::string invalidFilename = "bad.log";
 
   EXPECT_FALSE(logger.IsValidLogFilename(invalidFilename)) << "파일명이 다섯글자 미만일 때";
