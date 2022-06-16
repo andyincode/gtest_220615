@@ -1,7 +1,8 @@
 
-class Calc {
+class Calc
+{
 public:
-	Calc(double n) {} // !!
+	// Calc(double n) {} // !!
 
 	double Display() { return -1; }
 
@@ -28,9 +29,10 @@ public:
 //         : 테스트 코드의 가독성을 떨어 뜨리거나, 테스트 코드의 유지보수성을 떨어뜨리거나
 //           테스트 코드의 신뢰성을 떨어 뜨릴 수 있습니다.
 
-TEST(CalcTest, PressPlus_TwoPlusTwoEquals_DisplaysFour) {
+TEST(CalcTest, PressPlus_TwoPlusTwoEquals_DisplaysFour)
+{
 	// 1. Arrange
-	Calc* calc = new Calc;
+	Calc *calc = new Calc;
 	double expected = 4;
 
 	// 2. Act
@@ -43,9 +45,10 @@ TEST(CalcTest, PressPlus_TwoPlusTwoEquals_DisplaysFour) {
 	ASSERT_EQ(calc->Display(), expected) << "2 + 2 하였을 때";
 }
 
-TEST(CalcTest, PressMinus) {
-	Calc* calc = new Calc;
-	
+TEST(CalcTest, PressMinus)
+{
+	Calc *calc = new Calc;
+
 	calc->Enter(2);
 	calc->PressMinus();
 	calc->Enter(2);
@@ -53,19 +56,3 @@ TEST(CalcTest, PressMinus) {
 
 	ASSERT_EQ(calc->Display(), 0) << "2 - 2";
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

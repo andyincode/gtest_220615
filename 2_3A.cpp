@@ -2,7 +2,8 @@
 // SUT: System Under Test
 //  => 테스트 대상 시스템
 //  => CUT(Class/Code Under Test)
-class Calc {
+class Calc
+{
 public:
 	double Display() { return 0; }
 
@@ -11,7 +12,6 @@ public:
 	void PressEquals() {}
 };
 // #include "Calc.h"
-
 
 // 2_3A.cpp
 #include <gtest/gtest.h>
@@ -35,10 +35,15 @@ public:
 //    2) 유지보수성
 //     - 테스트케이스에서 오류가 발생할 수 없는 형태의 코드를 지향해야 합니다.
 //      > 제어 구문(조건문, 반복문, 예외 처리 등) 검증
+//        : 테스트 유틸리티 함수를 통해서 별도 검증하고 사용해야 합니다.
+//
 //      > 테스트케이스 코드 안에서 제어 구문을 지양해야 합니다.
 //    3) 신뢰성
+//     - 테스트케이스의 결과를 신뢰할 수 있는가?
+//        : 테스트의 결과가 간헐적으로 바뀐다.
+//          테스트의 결과가 환경에 따라 변경된다.
 //
-// 5. BDD(Behavior Driven Development)
+// 5. BDD(Behavior Driven Development) => Google Test도 지원하는 기능입니다.
 //  : 행위 주도 개발
 //   1) 사용하는 용어에 차이점이 있습니다.
 //     - 좀 더 사람과 가까운 용어를 사용하자.
@@ -47,12 +52,18 @@ public:
 //       Assert  -> Then
 //   2) ???
 
+TEST(SampleTest, foo)
+{
+	// Arrange
+	// Act
+	// Assert
+}
 
-TEST(CalcTest, PressPlus_TwoPlusTwoEquals_DisplaysFour) {
+TEST(CalcTest, PressPlus_TwoPlusTwoEquals_DisplaysFour)
+{
 	// 1. Arrange
-	Calc* calc = new Calc;
+	Calc *calc = new Calc;
 	double expected = 4;
-
 	// 2. Act
 	calc->Enter(2);
 	calc->PressPlus();
@@ -60,14 +71,14 @@ TEST(CalcTest, PressPlus_TwoPlusTwoEquals_DisplaysFour) {
 	calc->PressEquals();
 
 	// 3. Assert
-/*
-	if (calc->Display() == 4) {
-		SUCCEED();
-	} else {
-		// FAIL();
-		FAIL() << "2+2를 하였을 때 4가 나오지 않음.";
-	}
-*/
+	/*
+		if (calc->Display() == 4) {
+			SUCCEED();
+		} else {
+			// FAIL();
+			FAIL() << "2+2를 하였을 때 4가 나오지 않음.";
+		}
+	*/
 	// 위의 형태로 검증하는 것이 아니라, 단위 테스트 프레임워크가 제공하는
 	// 단언문을 사용해야 합니다.
 	//  => 함수, 매크로
@@ -77,19 +88,3 @@ TEST(CalcTest, PressPlus_TwoPlusTwoEquals_DisplaysFour) {
 	// ASSERT_EQ(expected, actual)
 	//  - Google Test 1.10 이전에는 반드시 인자의 순서가 중요합니다.
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
