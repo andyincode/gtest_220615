@@ -34,8 +34,11 @@ public:
 
 // Global Fixture를 설치하는 방법 2가지
 // 1) 사용자가 main을 제공하고 있지 않을 때
-// 2) 사용자가 main을 제공하고 있을 때
+//  > 전역 변수에 대한 초기화가 main 시작 전에 수행되는 언어적인 특성을 이용합니다.
+testing::Environment *env = testing::AddGlobalTestEnvironment(new TestEnvironment);
 
+// 2) 사용자가 main을 제공하고 있을 때
+#if 0
 int main(int argc, char **argv)
 {
   testing::InitGoogleTest(&argc, argv);
@@ -45,3 +48,4 @@ int main(int argc, char **argv)
 
   return RUN_ALL_TESTS();
 }
+#endif
