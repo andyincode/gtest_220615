@@ -37,3 +37,23 @@ TEST(SampleTest, Sample2)
   EXPECT_EQ(actualFoo, 42);
   EXPECT_EQ(actualGoo, 100);
 }
+
+class User
+{
+  int age = 10;
+
+public:
+  int GetAge() const { return age; }
+};
+
+User *GetUser() { return nullptr; }
+
+TEST(SampleTest, Sample3)
+{
+  User *user = GetUser();
+
+  ASSERT_NE(user, nullptr); // 사전 조건 단언문
+                            // : 비정상 종료가 발생하지 않도록 합니다.
+                            //   불필요한 검증이 더 이상 수행되지 않도록 할 수 있습니다.
+  EXPECT_EQ(user->GetAge(), 100);
+}
