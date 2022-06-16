@@ -1,5 +1,6 @@
 
-class Calc {
+class Calc
+{
 public:
 	// Calc(double n) {} // !!
 
@@ -28,37 +29,9 @@ public:
 //         : 테스트 코드의 가독성을 떨어 뜨리거나, 테스트 코드의 유지보수성을 떨어뜨리거나
 //           테스트 코드의 신뢰성을 떨어 뜨릴 수 있습니다.
 
-
 //  2) Delegate Setup(위임 설치)
 //    : 픽스쳐 설치에 관한 코드를 별도의 함수를 통해 캡슐화 합니다.
 //     => "테스트 유틸리티 함수"
-#if 0
-TEST(CalcTest, PressPlus_TwoPlusTwoEquals_DisplaysFour) {
-	// 1. Arrange
-	Calc* calc = new Calc;
-	double expected = 4;
-
-	// 2. Act
-	calc->Enter(2);
-	calc->PressPlus();
-	calc->Enter(2);
-	calc->PressEquals();
-
-	// 3. Assert
-	ASSERT_EQ(calc->Display(), expected) << "2 + 2 하였을 때";
-}
-
-TEST(CalcTest, PressMinus) {
-	Calc* calc = new Calc;
-	
-	calc->Enter(2);
-	calc->PressMinus();
-	calc->Enter(2);
-	calc->PressEquals();
-
-	ASSERT_EQ(calc->Display(), 0) << "2 - 2";
-}
-#endif
 
 // TestCase
 // > g++ -E 3_테스트픽스쳐2.cpp -I.
@@ -76,7 +49,8 @@ TEST(CalcTest, PressMinus) {
 // SampleTest.foo   SampleTest.goo
 
 // 1. TestSuite 클래스를 직접 제공해야 합니다.
-class SampleTest : public testing::Test {
+class SampleTest : public testing::Test
+{
 };
 
 // 2. 사용자가 정의한 TestSuite 클래스를 기반으로 테스트케이스를 생성해야 합니다.
@@ -95,5 +69,3 @@ TEST_F(SampleTest, goo) {}
 //     --------------------
 //     |                  |
 // SampleTest.foo   SampleTest.goo
-
-

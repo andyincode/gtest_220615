@@ -1,7 +1,8 @@
 
-class Calc {
+class Calc
+{
 public:
-	Calc(double n) {} // !!
+	// Calc(double n) {} // !!
 
 	double Display() { return -1; }
 
@@ -21,20 +22,21 @@ public:
 
 // TestSuite 클래스를 만드는 방법
 //  => testing::Test의 자식 클래스로 제공하면 됩니다.
-class CalcTest : public testing::Test {
-public:
+class CalcTest : public testing::Test
+{
+protected:
 	void foo() { printf("CalcTest::foo\n"); }
 
-	Calc* CreateCalc() { return new Calc(0); }
+	Calc *CreateCalc() { return new Calc; }
 };
 
-
-TEST_F(CalcTest, PressPlus_TwoPlusTwoEquals_DisplaysFour) {
+TEST_F(CalcTest, PressPlus_TwoPlusTwoEquals_DisplaysFour)
+{
 	foo();
 
 	// 1. Arrange
 	// Calc* calc = new Calc;
-	Calc* calc = CreateCalc();
+	Calc *calc = CreateCalc();
 	double expected = 4;
 
 	// 2. Act
@@ -47,12 +49,13 @@ TEST_F(CalcTest, PressPlus_TwoPlusTwoEquals_DisplaysFour) {
 	ASSERT_EQ(calc->Display(), expected) << "2 + 2 하였을 때";
 }
 
-TEST_F(CalcTest, PressMinus) {
+TEST_F(CalcTest, PressMinus)
+{
 	foo();
 
 	// Calc* calc = new Calc;
-	Calc* calc = CreateCalc();
-	
+	Calc *calc = CreateCalc();
+
 	calc->Enter(2);
 	calc->PressMinus();
 	calc->Enter(2);
@@ -60,4 +63,3 @@ TEST_F(CalcTest, PressMinus) {
 
 	ASSERT_EQ(calc->Display(), 0) << "2 - 2";
 }
-
