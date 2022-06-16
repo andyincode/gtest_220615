@@ -22,7 +22,6 @@ enum Color
   BLACK = 100,
   RED,
   WHITE,
-  YELLOW
 };
 
 const char *cars[] = {"Sonata", "Avante", "Genesis"};
@@ -34,7 +33,7 @@ class CarTest : public testing::TestWithParam<std::tuple<const char *, Color>>
 
 INSTANTIATE_TEST_SUITE_P(CarValues, CarTest,
                          testing::Combine(testing::ValuesIn(cars),
-                                          testing::Values(BLACK, RED, WHITE, YELLOW)));
+                                          testing::Values(BLACK, RED, WHITE)));
 
 TEST_P(CarTest, Sample)
 {
@@ -44,4 +43,18 @@ TEST_P(CarTest, Sample)
   Color color = std::get<1>(data);
 
   std::cout << car << ", " << color << std::endl;
+}
+
+// 4. testing::Range
+// : 정수 값을 범위 안에서 생성할 때 사용할 수 있습니다.
+class SampleTest : public testing::TestWithParam<int>
+{
+};
+
+INSTANTIATE_TEST_SUITE_P(SampleValues, SampleTest,
+                         testing::Range(0, 100, 10)); // [0, 100)
+
+TEST_P(SampleTest, Range)
+{
+  std::cout << GetParam() << std::endl;
 }
