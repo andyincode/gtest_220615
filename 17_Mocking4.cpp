@@ -27,8 +27,8 @@ public:
   template <typename PacketStream>
   void ReadPacket(PacketStream *stream, size_t packetNumber)
   {
-    // stream->AppendPacket(nullptr);
-    // stream->GetPacket(10);
+    stream->AppendPacket(nullptr);
+    stream->GetPacket(10);
   }
 };
 
