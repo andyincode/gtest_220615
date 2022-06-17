@@ -26,7 +26,10 @@ public:
 
   void Save(User *p) { database->SaveUser(p->GetName(), p); }
 
-  User *Load(const std::string &name) { return database->LoadUser(name); }
+  User *Load(const std::string &name) {
+    // return database->LoadUser(name);
+    return nullptr;
+  }
 
   bool IsExist(const std::string &name) { return Load(name) != nullptr; }
 };
@@ -136,6 +139,22 @@ TEST(UserManagerTest2, SaveLoadTest2) {
   int testAge = 42;
   User expected(testName, testAge);
 
+  manager.Save(&expected);
+  User *actual = manager.Load(testName);
+
+  ASSERT_NE(actual, nullptr);
+  EXPECT_EQ(*actual, expected);
+}
+
+TEST(UserManagerTest2, SaveLoadTest3) {
+  NiceMock<MockDatabase> mock;
+  UserManager manager(&mock);
+  std::string testName = "test_name";
+  int testAge = 42;
+  User expected(testName, testAge);
+
+  EXPECT_CALL(mock, SaveUser).WillOnce(&SaveUserImpl);
+  EXPECT_CALL(mock, LoadUser).WillOnce(&LoadUserImpl);
   manager.Save(&expected);
   User *actual = manager.Load(testName);
 
