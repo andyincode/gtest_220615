@@ -2,14 +2,13 @@
 // SUT: System Under Test
 //  => 테스트 대상 시스템
 //  => CUT(Class/Code Under Test)
-class Calc
-{
+class Calc {
 public:
-	double Display() { return 0; }
+  double Display() { return 0; }
 
-	void Enter(double n) {}
-	void PressPlus() {}
-	void PressEquals() {}
+  void Enter(double n) {}
+  void PressPlus() {}
+  void PressEquals() {}
 };
 // #include "Calc.h"
 
@@ -24,9 +23,9 @@ public:
 //    ImageProcessor -> ImageProcessorTest / ImageProcessorSpec
 //
 // 2. TestCase를 구성하는 방법 - 3A(TDD) / BDD
-//    1) Arrange: 테스트 대상 코드를 초기화하고, 필요한 경우 설정하고 준비합니다.
-//    2) Act: 테스트 대상 코드에 작용을 가한다.(함수를 호출한다)
-//    3) Assert: 기대하는 바를 단언한다.
+//    1) Arrange: 테스트 대상 코드를 초기화하고, 필요한 경우 설정하고
+//    준비합니다. 2) Act: 테스트 대상 코드에 작용을 가한다.(함수를 호출한다) 3)
+//    Assert: 기대하는 바를 단언한다.
 //
 // 3. 테스트 코드 품질
 //    1) 가독성
@@ -50,41 +49,39 @@ public:
 //       Arrange -> Given
 //       Act     -> When
 //       Assert  -> Then
-//   2) ???
+//   2) 상태 기반 검증 + 행위 기반 검증(Mock Framework)
 
-TEST(SampleTest, foo)
-{
-	// Arrange
-	// Act
-	// Assert
+TEST(SampleTest, foo) {
+  // Arrange
+  // Act
+  // Assert
 }
 
-TEST(CalcTest, PressPlus_TwoPlusTwoEquals_DisplaysFour)
-{
-	// 1. Arrange
-	Calc *calc = new Calc;
-	double expected = 4;
-	// 2. Act
-	calc->Enter(2);
-	calc->PressPlus();
-	calc->Enter(2);
-	calc->PressEquals();
+TEST(CalcTest, PressPlus_TwoPlusTwoEquals_DisplaysFour) {
+  // 1. Arrange
+  Calc *calc = new Calc;
+  double expected = 4;
+  // 2. Act
+  calc->Enter(2);
+  calc->PressPlus();
+  calc->Enter(2);
+  calc->PressEquals();
 
-	// 3. Assert
-	/*
-		if (calc->Display() == 4) {
-			SUCCEED();
-		} else {
-			// FAIL();
-			FAIL() << "2+2를 하였을 때 4가 나오지 않음.";
-		}
-	*/
-	// 위의 형태로 검증하는 것이 아니라, 단위 테스트 프레임워크가 제공하는
-	// 단언문을 사용해야 합니다.
-	//  => 함수, 매크로
-	//  ASSERT_EQ / LT / GT / NE / LE / GE / NULL / NOT_NULL / TRUE / FALSE ...
-	// ASSERT_EQ(calc->Display(), 4) << "2 + 2 하였을 때";
-	ASSERT_EQ(calc->Display(), expected) << "2 + 2 하였을 때";
-	// ASSERT_EQ(expected, actual)
-	//  - Google Test 1.10 이전에는 반드시 인자의 순서가 중요합니다.
+  // 3. Assert
+  /*
+          if (calc->Display() == 4) {
+                  SUCCEED();
+          } else {
+                  // FAIL();
+                  FAIL() << "2+2를 하였을 때 4가 나오지 않음.";
+          }
+  */
+  // 위의 형태로 검증하는 것이 아니라, 단위 테스트 프레임워크가 제공하는
+  // 단언문을 사용해야 합니다.
+  //  => 함수, 매크로
+  //  ASSERT_EQ / LT / GT / NE / LE / GE / NULL / NOT_NULL / TRUE / FALSE ...
+  // ASSERT_EQ(calc->Display(), 4) << "2 + 2 하였을 때";
+  ASSERT_EQ(calc->Display(), expected) << "2 + 2 하였을 때";
+  // ASSERT_EQ(expected, actual)
+  //  - Google Test 1.10 이전에는 반드시 인자의 순서가 중요합니다.
 }
