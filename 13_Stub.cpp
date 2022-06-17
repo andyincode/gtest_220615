@@ -18,6 +18,7 @@ class User {
 public:
   int Display(Time *time) {
     std::string t = time->GetCurrentTime();
+    // std::string t = "x";
 
     // 시간에 따라서 다른 동작을 수행합니다.
     if (t == "00:00")
@@ -90,4 +91,12 @@ TEST(UserTest2, Display2) {
   User user;
 
   EXPECT_EQ(100, user.Display(&stub)) << "10:00 일때";
+}
+
+TEST(UserTest2, Display3) {
+  NiceMock<MockTime> mock;
+  User user;
+
+  EXPECT_CALL(mock, GetCurrentTime).WillOnce(Return("10:00"));
+  EXPECT_EQ(100, user.Display(&mock)) << "10:00 일때";
 }
