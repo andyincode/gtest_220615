@@ -123,8 +123,8 @@ TEST(SampleTest, Sample4) {
   // {10, 20, 30}
   // EXPECT_CALL(mock, Print(ElementsAre(10, 20, 30)));
 
-  int expected[] = {10, 20, 30};
-  // Matcher<int> expected[] = {Lt(30), Gt(15), Lt(100)};
+  // int expected[] = {10, 20, 30};
+  Matcher<int> expected[] = {Lt(30), Gt(15), Lt(100)};
   // EXPECT_CALL(mock, Print(ElementsAreArray(expected)));
 
   EXPECT_CALL(mock, Print(UnorderedElementsAreArray(expected)));
