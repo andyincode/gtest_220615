@@ -71,3 +71,16 @@ TEST(SampleTest, Sample2) {
 
   Sample2(&mock);
 }
+
+// Mock / InSequence / Sequence
+// => 파괴되는 시점에 테스트의 결과가 판단됩니다.
+
+TEST(SampleTest, Sample3) {
+  MockUser mock;
+
+  EXPECT_CALL(mock, First);
+
+  // MockUser *mock = new MockUser;
+  // EXPECT_CALL(*mock, First);
+  // delete mock;
+}
