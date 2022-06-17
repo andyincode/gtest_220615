@@ -72,7 +72,7 @@ TEST(SampleTest, Sample2) {
 
 // 3. 함수 호출 횟수는 인자 매칭에 따라 달라질 수 있습니다.
 void Sample3(User *p) {
-  p->Go(100, 25);
+  p->Go(100, 35);
   p->Go(100, -1);
 }
 
@@ -88,7 +88,7 @@ using testing::Lt;    // <
 using testing::Matcher;
 using testing::Ne; // !=
 
-TEST(SampleTest, Sample3) {
+TEST(SampleTest, DISABLED_Sample3) {
   MockUser mock;
 
   // Go의 첫번째 인자가 0보다 커야 한다.
@@ -96,7 +96,8 @@ TEST(SampleTest, Sample3) {
 
   // 첫번째 인자가 10보다 크고 30보다 작거나 같아야 한다.
   // Gt(10) && Le(30)
-  Matcher<int> arg1 = AllOf(Gt(10), Le(30)); // 10 < arg1 <= 30
+  // Matcher<int> arg1 = AllOf(Gt(10), Le(30)); // 10 < arg1 <= 30
+  auto arg1 = AllOf(Gt(10), Le(30));
 
   // 두번째 인자는 0보다 작거나, 30보다 커야 한다.
   // Lt(0) || Gt(30)
@@ -104,4 +105,29 @@ TEST(SampleTest, Sample3) {
   EXPECT_CALL(mock, Go(arg1, arg2)).Times(2);
 
   Sample3(&mock);
+}
+
+void Sample4(User *p) {
+  std::vector<int> data = {20, 30, 10};
+  p->Print(data);
+}
+
+using testing::ElementsAre;
+using testing::ElementsAreArray;
+using testing::UnorderedElementsAre;
+using testing::UnorderedElementsAreArray;
+
+TEST(SampleTest, Sample4) {
+  MockUser mock;
+
+  // {10, 20, 30}
+  // EXPECT_CALL(mock, Print(ElementsAre(10, 20, 30)));
+
+  int expected[] = {10, 20, 30};
+  // Matcher<int> expected[] = {Lt(30), Gt(15), Lt(100)};
+  // EXPECT_CALL(mock, Print(ElementsAreArray(expected)));
+
+  EXPECT_CALL(mock, Print(UnorderedElementsAreArray(expected)));
+
+  Sample4(&mock);
 }
